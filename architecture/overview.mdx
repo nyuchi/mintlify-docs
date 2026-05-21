@@ -1,0 +1,66 @@
+---
+title: "Architecture"
+description: "The Nyuchi 3D architecture model — five axes, ten layers, and a self-healing registry. Doctrine that documents itself."
+---
+
+The Nyuchi Design System is structured as a **3D architecture model**: ten layers
+arranged across five axes. Every component sits at exactly one position in this
+model, and the placement determines what it may import, what it must do, and how
+it is observed.
+
+## The five axes
+
+| Axis | Geometry | What it covers |
+|---|---|---|
+| **X-axis** | Horizontal composition | What the user sees — L2 primitives, L3 brand, L6 pages, L7 shell |
+| **Y-axis** | Vertical infrastructure | What flows through everything — L1 tokens, L4 safety, L5 resilience |
+| **Z-axis** | Depth observation | What watches the system — L8 assurance |
+| **Outside** | External actor | What heals the system — L9 fundi |
+| **Documentation** | Self-description | The system describing itself — L10 |
+
+## The ten layers
+
+| # | Layer | Axis | Covenant |
+|---|---|---|---|
+| 1 | Tokens | Y | Design decisions are data, not code. |
+| 2 | Primitives | X | A primitive does one thing well. |
+| 3 | Brand | X | A brand component is a primitive with Ubuntu in it. |
+| 4 | Safety | Y | Nothing harmful reaches the user. |
+| 5 | Resilience | Y | Failure in one part never breaks the whole. |
+| 6 | Pages | X | A page is a composition, not an implementation. |
+| 7 | Shell | X | The shell holds the product. |
+| 8 | Assurance | Z | What breaks is seen before users feel it. |
+| 9 | Fundi | Outside | Failure is a learning event, not a user-facing incident. |
+| 10 | Documentation | Documentation | The system documents itself in code. |
+
+<Note>
+  This 3D **frontend** architecture model is distinct from the 7-layer **data**
+  architecture (Pod, Relational, Document, Sync, Edge, Device, Open Data). A
+  component can sit at frontend L3 and read from data L2 without contradiction —
+  never conflate the two numberings.
+</Note>
+
+## Rules
+
+- Components import from the layer below on the **same axis** — never sideways or upward.
+- Each component is a standalone, independently installable file.
+- L6 pages never hardcode buttons, cards, or SVGs — they are pure compositions of L2/L3.
+- L1 is the only layer allowed to define CSS values; every other layer consumes them via `var()`.
+- L3 components always destructure `{ log, motion, LiveRegion }` from `useNyuchiHarness`; L2 never imports it.
+
+## Explore
+
+<CardGroup cols={2}>
+  <Card title="Layer Decision Guide" icon="git-branch" href="/architecture/layers">
+    How to decide which of the 10 layers a component belongs to.
+  </Card>
+  <Card title="Component Backlinks" icon="link" href="/architecture/component-backlinks">
+    The stable URL graph that ties every component to its docs, source, and health.
+  </Card>
+  <Card title="Fundi" icon="wrench" href="/architecture/fundi">
+    The L9 outside actor that self-heals the system through GitHub Issues.
+  </Card>
+  <Card title="Registry" icon="package" href="/architecture/registry">
+    The shadcn-compatible registry that serves the design system.
+  </Card>
+</CardGroup>

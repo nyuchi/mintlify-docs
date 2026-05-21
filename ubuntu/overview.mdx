@@ -1,0 +1,45 @@
+---
+title: "Ubuntu"
+description: "Ubuntu — I am because we are. The community-first philosophy at the foundation of every Nyuchi design decision."
+---
+
+The Nyuchi Design System is built on **Ubuntu** — the southern African philosophy
+captured by the phrase *"I am because we are."* A person is a person through other
+people. Identity, dignity, and meaning are relational, not individual.
+
+Ubuntu is not decoration on top of the design system — it is the doctrine
+underneath it. Every token, every component, and every product decision is made
+with the community in mind. The system is open source and designed for anyone to
+use, extend, and contribute to.
+
+Ubuntu is expressed in the design system through two structured frameworks, both
+maintained as canonical data in the platform database:
+
+<CardGroup cols={2}>
+  <Card title="The Five Pillars" icon="house" href="/ubuntu/pillars">
+    The five spheres of belonging — family, community, society, environment, and
+    spirituality.
+  </Card>
+  <Card title="The Five Principles" icon="hand-heart" href="/ubuntu/principles">
+    The five practised values — survival, solidarity, compassion, respect, and
+    dignity.
+  </Card>
+</CardGroup>
+
+## Pillars and principles
+
+The **Pillars** describe the *spheres* in which a person exists — the concentric
+webs of belonging that define who someone is. The **Principles** describe the
+*values* a person practises within those spheres. Together they translate Ubuntu
+from philosophy into concrete platform behaviour.
+
+Both frameworks are served live from the API:
+
+```bash
+curl https://design.nyuchi.com/api/v1/ubuntu/pillars
+curl https://design.nyuchi.com/api/v1/ubuntu/principles
+```
+
+They are also exposed to AI assistants through the MCP server as the
+`get_ubuntu_pillars` and `get_ubuntu_principles` tools, and as the
+`mukoko://ubuntu` resource.

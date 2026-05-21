@@ -1,0 +1,53 @@
+---
+title: "Registry"
+description: "How the Mukoko component registry works: architecture, API, and static builds."
+---
+
+The Nyuchi Design Portal is a **shadcn-compatible component registry** that serves the full set of stable registry items across 10 architecture layers. The live count is published at `GET /api/v1/stats`. It allows any app in the bundu ecosystem to install production-ready components with a single CLI command — consumed by mukoko's 17 mini-apps, nyuchi's 7 enterprise products, and sister brands including Zimbabwe Information Platform and Barstool by Nyuchi.
+
+## How it works
+
+The registry serves components in two ways:
+
+1. **Dynamic API** — `GET /api/v1/ui/{name}` reads `registry.json` at runtime, inlines component source code, and serves it with CORS headers
+2. **Static build** — `pnpm registry:build` pre-generates JSON files into `public/r/` for CDN serving
+
+Both formats are compatible with the shadcn CLI.
+
+## Architecture
+
+```
+registry.json (manifest — source of truth)
+    │
+    ├── Dynamic API (app/api/v1/ui/)
+    │   ├── GET /api/v1/ui → registry index
+    │   └── GET /api/v1/ui/{name} → component JSON with source
+    │
+    └── Static build (scripts/build-registry.js)
+        └── public/r/{name}.json → pre-built component JSON
+```
+
+## Explore
+
+<CardGroup cols={2}>
+  <Card title="Consuming the registry" icon="download" href="/architecture/registry-consuming">
+    Install components into your app with the shadcn CLI.
+  </Card>
+  <Card title="Contributing components" icon="upload" href="/architecture/registry-contributing">
+    Author and publish new registry components.
+  </Card>
+  <Card title="Registry schema" icon="file-json" href="/architecture/registry-schema">
+    The shadcn-compatible JSON schema the registry follows.
+  </Card>
+  <Card title="MCP server" icon="bot" href="/architecture/registry-mcp">
+    Expose the registry to AI assistants over the Model Context Protocol.
+  </Card>
+</CardGroup>
+
+## Quick install
+
+```bash
+npx shadcn@latest add https://design.nyuchi.com/api/v1/ui/button
+```
+
+This fetches the button component JSON, resolves its dependencies (`radix-ui`, `class-variance-authority`), and writes `components/ui/button.tsx` to your project.

@@ -1,0 +1,122 @@
+---
+title: "Ecosystem Conventions"
+description: "Canonical doctrine decisions for the bundu ecosystem — ownership, the resolver, and the data substrate."
+---
+
+These are the canonical convention decisions that govern the bundu ecosystem.
+They are maintained as versioned rows in the `bundu_conventions` table and are
+the source of record for how the ecosystem is owned, operated, and built.
+
+## Ownership convention
+
+*Version 1.0.0 — active.*
+
+### Roles
+
+- **Bundu** owns the IP — standards, frameworks, research, the canonical token
+  palette (five minerals: terracotta, gold, tanzanite, malachite, cobalt), the
+  semantic token schema, and the documentation system.
+- **Nyuchi** operates all infrastructure across the ecosystem. The database, the
+  registry, the MCP, the build pipeline, the Fundi worker, billing, observability
+  — anything that runs is Nyuchi-operated.
+- **Mukoko** is the consumer surface — the apps people see and use.
+- **Projects, products, and initiatives** sit under the ecosystem as siblings.
+
+### Node ownership in the 3D + 2 model
+
+| Node | Layer | Owner |
+|---|---|---|
+| 1 | Tokens | Bundu canonical |
+| 2 | Primitive | Upstream (React, Svelte, Angular, Material, crates.io, Swift, Kotlin, ArkTS) resolved via the Mzizi hybrid resolver, not stored |
+| 3 | Brand | Nyuchi, Mukoko, or any ecosystem brand |
+| 4 | Safety | Mzizi |
+| 5 | Resilience | Mzizi |
+| 6 | Pages | Nyuchi, Mukoko, or any ecosystem brand |
+| 7 | Shell | Nyuchi, Mukoko, or any ecosystem brand |
+| 8 | Assurance | Mzizi |
+| 9 | Fundi | Nyuchi-operated, Bundu-governed |
+| 10 | Documentation | Bundu canonical |
+
+### What Mzizi is
+
+Mzizi is the open architecture framework published by Bundu. It defines the
+3D + 2 node model, the MCP and registry, the build toolchain, and the resilience
+layer (nodes 4, 5, 8). It is open source — anyone can build with it.
+
+### Ecosystem brands and external adopters
+
+Each brand inside the bundu ecosystem picks one mineral from the canonical Bundu
+palette as its primary and inherits the rest of the token schema
+(`brand_ecosystem.adopter_type = 'ecosystem_brand'`).
+
+Third-party organisations adopting Mzizi substitute their own palette, primary,
+and documentation — the framework accepts it. They cannot substitute the
+engineering nodes (4, 5, 8), which are Mzizi-defined
+(`brand_ecosystem.adopter_type = 'external_adopter'`).
+
+## Resolver deployment
+
+*Version 2.0.0 — active. Status: live (v0.1.0).*
+
+The primitive resolver is deployed as a Supabase edge function named `resolver`
+at `https://grjsboqkaywpwatvrzmy.functions.supabase.co/resolver`. All four fetch
+strategies are implemented and tested:
+
+- **`http_json`** — verified against mzizi-react-legacy, react (shadcn), and svelte (shadcn-svelte).
+- **`npm`** — verified against interchain-ui (returns package + export name).
+- **`native`** — returns the platform module path with a no-fetch note.
+- **`crate`** — returns the crate name + `Cargo.toml` guidance.
+
+### Routes
+
+| Route | Purpose |
+|---|---|
+| `GET /resolver?name=<primitive>&descriptor=<slug>` | Resolve one primitive against one descriptor. If the descriptor is omitted, picks the best by readiness, with mzizi-react-legacy preferred on tiebreaks. |
+| `GET /resolver/sources?name=<primitive>` | List every descriptor that serves the named primitive. |
+| `GET /resolver/descriptors` | List every registered framework descriptor. |
+| `GET /resolver/health` | Liveness check. |
+
+**Why an edge function rather than a Cloudflare Worker:** it lives next to the
+data, shares the same deploy pipeline as the other edge functions, and the
+service-role key is already in scope.
+
+**Upstream risk policy:** upstream failure is accepted as business risk. There is
+no caching, no fallbacks, and no pinning beyond `primitive_sources.pinned_version`.
+Document the dependency; do not engineer around it.
+
+## Doctrine v3.5 — substrate decision
+
+*Version 1.0.0 — active. Recorded 2026-05-21.*
+
+This decision reconciles the in-conversation doctrine with the canonical
+architecture tables in the database.
+
+### Decisions
+
+1. **MongoDB is the non-relational operational primary.** Restored to the
+   canonical stack. Sovereignty is handled as a tiered classification: MongoDB is
+   classified medium-risk with a documented justification (SSPL is not
+   OSI-approved, but the source is available and Community Server is
+   self-hostable) rather than treated as a hard disqualifier.
+2. **NATS and Redpanda are both kept.** NATS provides the service mesh, event
+   bus, RPC, and ephemeral KV — the edge-native connective fabric. Redpanda
+   provides high-throughput, Kafka-compatible event streaming into Apache Flink.
+3. **Sync protocol: the SiafuDB Graph Sync Protocol is canonical.** SiafuDB is a
+   first-party Bundu Foundation project (Apache-2.0). Its bidirectional,
+   CRDT-inspired Graph Sync Protocol supersedes Apache CouchDB. Until SiafuDB
+   ships, Mongo-native RxDB replication is the interim sync implementation.
+4. **ScyllaDB is retained as future, not removed.** It is re-roled to a future
+   candidate for the Nhaka cold-storage tier and is not currently active.
+
+### Data ownership — four-category model
+
+| Category | Database | Lifecycle |
+|---|---|---|
+| personal | Postgres (FK roots) + Mongo (operational content) | Pre-verification, platform-readable |
+| personal-sovereign | Honeycomb Pod | Post-verification, user-private |
+| community | MongoDB (operational primary) | Community-shared |
+| platform-open | Apache Doris (via the Flink privacy filter) | Public-open |
+
+`personal` and `personal-sovereign` are one category at two lifecycle points:
+personal data starts platform-readable and migrates to the sovereign Honeycomb
+Pod at identity verification (tier 2+).
