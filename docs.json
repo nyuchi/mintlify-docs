@@ -150,7 +150,6 @@
               "architecture/overview",
               "architecture/layers",
               "architecture/component-backlinks",
-              "architecture/fundi",
               "architecture/conventions"
             ]
           },
@@ -190,6 +189,15 @@
               "api-reference/sovereignty",
               "api-reference/health"
             ]
+          }
+        ]
+      },
+      {
+        "tab": "Fundi",
+        "groups": [
+          {
+            "group": "Fundi",
+            "pages": ["fundi/overview"]
           }
         ]
       }
