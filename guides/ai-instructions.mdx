@@ -1,0 +1,47 @@
+---
+title: "AI Instructions"
+description: "How AI assistants are briefed on the Nyuchi Design System — the instruction sets served from the database."
+---
+
+The Nyuchi Design System ships **AI instruction sets** — system prompts that
+brief AI assistants on the design system's doctrine, tokens, layered
+architecture, and tooling. They are maintained as canonical rows in the
+`ai_instructions` table so that every assistant works from the same, current
+source of truth.
+
+## Instruction sets
+
+| Name | Target | Purpose |
+|---|---|---|
+| `nyuchi-claude-project-prompt` | `claude-system-prompt` | System prompt for Claude projects working on the Nyuchi Design System. |
+| `nyuchi-mcp-system-prompt` | `mcp-server` | System prompt for the Nyuchi Design MCP server — tells AI assistants how to use the design system tools. |
+| `nyuchi-copilot-instructions` | `github-copilot` | Instructions for GitHub Copilot when working in the `design-portal` repository. |
+
+## Fetching instruction sets
+
+Instruction sets are served from the API and exposed through the MCP server.
+
+```bash
+# List every instruction set
+curl https://design.nyuchi.com/api/v1/ai/instructions
+
+# Fetch a single set by target
+curl https://design.nyuchi.com/api/v1/ai/instructions/mcp-server
+```
+
+Through the [MCP server](/architecture/registry-mcp), the same content is
+available via the `get_ai_instructions` tool — an assistant connected to `/mcp`
+can load the doctrine without any HTTP plumbing.
+
+## Why instructions live in the database
+
+Like component source, brand tokens, and the changelog, AI instructions are
+**data, not scattered config**. Keeping them in `ai_instructions` means:
+
+- Every assistant — Claude, the MCP server, Copilot — reads the same current
+  version.
+- Updating doctrine is a single row change, not a sweep across repositories.
+- Instruction sets are versioned, so a consumer can detect drift.
+
+For the related agent **skills** — MDX bodies authored once and served four ways
+— see the [Skills guide](/guides/skills).
