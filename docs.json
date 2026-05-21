@@ -31,7 +31,169 @@
     "options": ["copy", "view", "assistant", "mcp", "add-mcp"]
   },
   "navigation": {
-    "pages": ["index"]
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "index",
+              "guides/introduction",
+              "guides/installation",
+              "guides/cli"
+            ]
+          },
+          {
+            "group": "Working with the system",
+            "pages": [
+              "guides/theming",
+              "guides/dark-mode",
+              "guides/api-reference",
+              "guides/skills",
+              "guides/ai-instructions"
+            ]
+          },
+          {
+            "group": "Project",
+            "pages": [
+              "guides/contributing",
+              "guides/changelog",
+              "guides/faq"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Design System",
+        "groups": [
+          {
+            "group": "Foundations",
+            "pages": [
+              "design-system/foundations/overview",
+              "design-system/foundations/tokens",
+              "design-system/foundations/typography",
+              "design-system/foundations/layout",
+              "design-system/foundations/motion",
+              "design-system/foundations/icons",
+              "design-system/foundations/accessibility",
+              "design-system/foundations/internationalization"
+            ]
+          },
+          {
+            "group": "Brand",
+            "pages": [
+              "design-system/brand/overview"
+            ]
+          },
+          {
+            "group": "Content",
+            "pages": [
+              "design-system/content/overview",
+              "design-system/content/writing",
+              "design-system/content/error-messages",
+              "design-system/content/inclusive-language"
+            ]
+          },
+          {
+            "group": "Components",
+            "pages": [
+              "design-system/components/overview"
+            ]
+          },
+          {
+            "group": "Patterns",
+            "pages": [
+              "design-system/patterns/overview",
+              "design-system/patterns/architecture",
+              "design-system/patterns/components",
+              "design-system/patterns/error-boundaries",
+              "design-system/patterns/observability",
+              "design-system/patterns/lazy-loading",
+              "design-system/patterns/mobile-first",
+              "design-system/patterns/dashboard",
+              "design-system/patterns/authentication",
+              "design-system/patterns/resource-index",
+              "design-system/patterns/resource-detail"
+            ]
+          },
+          {
+            "group": "Blocks",
+            "pages": [
+              "design-system/blocks/overview",
+              "design-system/blocks/dashboard",
+              "design-system/blocks/authentication",
+              "design-system/blocks/sidebar"
+            ]
+          },
+          {
+            "group": "Charts",
+            "pages": [
+              "design-system/charts/overview",
+              "design-system/charts/area",
+              "design-system/charts/bar",
+              "design-system/charts/line",
+              "design-system/charts/pie",
+              "design-system/charts/radar",
+              "design-system/charts/radial",
+              "design-system/charts/tooltip"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Architecture",
+        "groups": [
+          {
+            "group": "The model",
+            "pages": [
+              "architecture/overview",
+              "architecture/layers",
+              "architecture/component-backlinks",
+              "architecture/fundi",
+              "architecture/conventions"
+            ]
+          },
+          {
+            "group": "Registry",
+            "pages": [
+              "architecture/registry",
+              "architecture/registry-consuming",
+              "architecture/registry-contributing",
+              "architecture/registry-schema",
+              "architecture/registry-mcp"
+            ]
+          },
+          {
+            "group": "Ubuntu",
+            "pages": [
+              "ubuntu/overview",
+              "ubuntu/pillars",
+              "ubuntu/principles"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "API",
+            "pages": [
+              "api-reference/overview",
+              "api-reference/discovery",
+              "api-reference/ui",
+              "api-reference/brand",
+              "api-reference/ecosystem",
+              "api-reference/data-layer",
+              "api-reference/pipeline",
+              "api-reference/sovereignty",
+              "api-reference/health"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "logo": {
     "light": "/images/nyuchi-docs.svg",
