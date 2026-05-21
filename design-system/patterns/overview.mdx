@@ -1,0 +1,53 @@
+---
+title: "Patterns"
+description: "Mandatory patterns enforced across all Nyuchi ecosystem apps — ensuring consistency, resilience, and maintainability."
+---
+
+Every Nyuchi ecosystem app follows these patterns. They are not optional — they ensure consistency, resilience, and maintainability across all 17 mukoko mini-apps and 7 nyuchi enterprise products. Each pattern is tested against the four pillars: sovereignty, resilience, accessibility, and African-first infrastructure.
+
+## Architecture & composition
+
+<CardGroup cols={2}>
+  <Card title="5-Layer Architecture" icon="layers" href="/design-system/patterns/architecture">
+    Mandatory layered component architecture that enforces separation of concerns from primitives to server pages.
+  </Card>
+  <Card title="Component Patterns" icon="puzzle" href="/design-system/patterns/components">
+    CVA variants, Radix UI primitives, `cn()` composition, and data attributes — the mandatory stack for every component.
+  </Card>
+</CardGroup>
+
+## Resilience & observability
+
+<CardGroup cols={2}>
+  <Card title="Error Boundaries" icon="shield" href="/design-system/patterns/error-boundaries">
+    Three layers of error isolation that prevent one failing section from crashing the entire page.
+  </Card>
+  <Card title="Observability" icon="activity" href="/design-system/patterns/observability">
+    Structured logging, performance measurement, and error tracking with the `[mukoko]` prefix for grep-ability.
+  </Card>
+  <Card title="Lazy Loading" icon="clock" href="/design-system/patterns/lazy-loading">
+    Sequential mounting — one section at a time through a FIFO queue, with memory pressure monitoring.
+  </Card>
+  <Card title="Mobile-First" icon="smartphone" href="/design-system/patterns/mobile-first">
+    Designing for constrained bandwidth and lower-end hardware as the primary use case.
+  </Card>
+</CardGroup>
+
+## Page patterns
+
+<CardGroup cols={2}>
+  <Card title="Dashboard" icon="layout-dashboard" href="/design-system/patterns/dashboard">
+    Composing stats, charts, sidebars, and data tables into a consistent dashboard layout.
+  </Card>
+  <Card title="Authentication" icon="lock" href="/design-system/patterns/authentication">
+    Sign in, sign up, and password reset flows with form validation.
+  </Card>
+  <Card title="Resource Index" icon="list" href="/design-system/patterns/resource-index">
+    List views with filtering, sorting, and pagination for collections of resources.
+  </Card>
+  <Card title="Resource Detail" icon="file-text" href="/design-system/patterns/resource-detail">
+    Detail views for a single resource, with related actions and metadata.
+  </Card>
+</CardGroup>
+
+These patterns are enforced across all 17 mukoko mini-apps operating in three modes — **musha** (home), **basa** (work), **nhaka** (heritage) — and all 7 nyuchi enterprise products including **weather**, **news**, **nhimbe**, and **shamwari**. Install components from this registry — do not copy-paste or create parallel libraries.

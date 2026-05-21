@@ -1,0 +1,79 @@
+---
+title: "Error Boundaries"
+description: "Three layers of error isolation prevent cascading failures. A crashing chart never takes down the whole page."
+---
+
+Three layers of error isolation prevent cascading failures. A crashing chart never takes down the whole page. This is mandatory in every Mukoko app.
+
+## Layer overview
+```tsx title="components/error-boundary.tsx"
+
+// In a component showcase or preview
+<ErrorBoundary
+  fallback={<p className="text-xs text-muted-foreground">Preview unavailable</p>}
+>
+  <ChartPreview />
+</ErrorBoundary>
+```
+
+## 2. SectionErrorBoundary
+
+The workhorse boundary for the 5-layer architecture. Every page section gets one. Shows the section name, a retry button, and logs errors via the observability system. Supports custom fallback UI and an onError callback for external reporting.
+
+```tsx title="components/section-error-boundary.tsx"
+
+<main className="flex flex-col gap-6">
+  <SectionErrorBoundary section="Weather Overview">
+    <WeatherOverview />
+  </SectionErrorBoundary>
+
+  <SectionErrorBoundary section="Activity Feed">
+    <ActivityFeed />
+  </SectionErrorBoundary>
+
+  <SectionErrorBoundary
+    section="Analytics"
+    onError={(error, section) => {
+      // Report to external service
+      reportError(error, { section })
+    }}
+  >
+    <AnalyticsChart />
+  </SectionErrorBoundary>
+</main>
+```
+
+### Props
+
+| Prop | Type | Description |
+|---|---|---|
+| `section` | `string` | Section name for logging and fallback display |
+| `fallback?` | `ReactNode` | Custom fallback UI (default: card with retry) |
+| `onError?` | `(error, section) => void` | Callback for external error reporting |
+| `className?` | `string` | Additional styles for the fallback container |
+
+## 3. Route + Global Error Boundaries
+
+Next.js provides these automatically. The route-level boundary (error.tsx) catches errors within a route segment and offers a retry. The global boundary (global-error.tsx) is the absolute last resort — it wraps the entire HTML document with hardcoded colors since CSS custom properties may not be available.
+
+```tsx title="app/error.tsx"
+"use client"
+
+```
+
+```tsx title="app/global-error.tsx"
+"use client"
+
+// Hardcoded colors — CSS custom
+// properties may not be available
+```
+
+## Install from registry
+
+```bash
+# SectionErrorBoundary (recommended for page sections)
+npx shadcn@latest add https://design.nyuchi.com/api/v1/ui/section-error-boundary
+
+# Basic ErrorBoundary (for component previews)
+npx shadcn@latest add https://design.nyuchi.com/api/v1/ui/error-boundary
+```

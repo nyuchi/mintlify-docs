@@ -1,0 +1,112 @@
+---
+title: "5-Layer Architecture"
+description: "Every Mukoko app enforces a strict 5-layer component hierarchy. Components import from the layer below, never sideways or upward."
+---
+
+Every Mukoko app enforces a strict 5-layer component hierarchy. Components import from the layer below, never sideways or upward. This ensures isolation, testability, and prevents cascading failures.
+
+## Layer Hierarchy
+
+| Layer | Name | Path |
+|---|---|---|
+| L1 | Shared Primitives | `components/ui/` |
+| L2 | Domain Composites | `components/weather/`, `components/reports/` |
+| L3 | Page Orchestrators | `components/landing/`, `components/dashboard/` |
+| L4 | Error Boundaries + Loading States | `components/section-error-boundary.tsx` |
+| L5 | Server Page Wrappers | `app/[route]/page.tsx` |
+
+> Imports flow downward only.
+
+## Demonstration
+
+<Note>
+  The design portal hosts an interactive demonstration of all 5 layers, where
+  each section is wrapped in a `SectionErrorBoundary` and you can trigger an
+  error to see how one section crashes without affecting the others. That live
+  React demo does not port to this documentation site — the layer-by-layer
+  walkthrough below covers the same material.
+</Note>
+
+## Layer 1: Shared Primitives
+
+**Path:** `components/ui/`
+
+Foundational UI components from this registry — Button, Input, Card, Badge, etc. Installed via the shadcn CLI. Never import from higher layers.
+
+```tsx title="components/ui/button.tsx"
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center ...",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground",
+        outline: "border-border bg-input/30",
+      },
+      size: {
+        default: "h-9 px-3",
+        sm: "h-8 px-3",
+      },
+    },
+    defaultVariants: { variant: "default", size: "default" },
+  }
+)
+
+```
+
+## Layer 2: Domain Composites
+
+**Path:** `components/weather/`, `components/reports/`
+
+Feature-specific components that compose Layer 1 primitives into domain-relevant UI. A WeatherCard combines Card + Badge + Progress from the registry.
+
+```tsx title="components/weather/forecast-card.tsx"
+
+```
+
+## Layer 3: Page Orchestrators
+
+**Path:** `components/landing/`, `components/dashboard/`
+
+Compose Layer 2 components into full page sections. Orchestrators NEVER hardcode rendering logic — they import and arrange domain composites.
+
+```tsx title="components/dashboard/weather-dashboard.tsx"
+
+```
+
+## Layer 4: Error Boundaries + Loading States
+
+**Path:** `components/section-error-boundary.tsx`
+
+Every section gets wrapped in a SectionErrorBoundary. If a chart crashes, only that section shows an error — the rest of the page continues working. This is mandatory.
+
+```tsx title="components/dashboard/safe-dashboard.tsx"
+
+```
+
+## Layer 5: Server Page Wrappers
+
+**Path:** `app/[route]/page.tsx`
+
+Next.js App Router page.tsx files. Handle SEO metadata, data fetching, and pass props down to the orchestrator. These are React Server Components by default.
+
+```tsx title="app/dashboard/page.tsx"
+
+async function getWeatherData() {
+  // Server-side data fetching
+  const res = await fetch("https://api.mukoko.com/weather", {
+    next: { revalidate: 900 }, // 15-minute cache
+  })
+  return res.json()
+}
+
+```
+
+## Rules
+
+- Components import from the layer below, never sideways or upward
+- Each component is a standalone file — independently installable via the registry
+- Page orchestrators NEVER hardcode rendering logic — they compose imported components
+- All colors and styles come from CSS custom properties in globals.css
+- SectionErrorBoundary wrapping is mandatory for every page section
+- Server components by default — add "use client" only when using hooks or event handlers

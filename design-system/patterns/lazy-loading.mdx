@@ -1,0 +1,55 @@
+---
+title: "Lazy Loading"
+description: "TikTok-style sequential mounting — one section at a time through a FIFO queue, with memory pressure monitoring."
+---
+
+TikTok-style sequential mounting from mukoko-weather. Only one section mounts at a time through a global FIFO queue, preventing OOM crashes on mobile devices.
+
+## Install from registry
+
+```bash
+npx shadcn@latest add https://design.nyuchi.com/api/v1/ui/lazy-section
+npx shadcn@latest add https://design.nyuchi.com/api/v1/ui/use-memory-pressure
+```
+
+## Demonstration
+
+<Note>
+  The design portal hosts a live demonstration of sequential mounting: the first
+  section loads eagerly while all subsequent sections wait in a FIFO queue and
+  mount one at a time with skeleton fallbacks. That interactive React demo does
+  not port to this documentation site.
+</Note>
+
+## How it works
+```tsx title="app/dashboard/page.tsx"
+
+```
+
+## Memory Pressure
+
+Monitor JS heap usage and react to memory pressure. Chrome-only API with graceful no-op fallback on other browsers.
+
+```ts title="hooks/use-memory-pressure.ts"
+
+function App() {
+  const { isUnderPressure, usedMB, totalMB, usagePercent } = useMemoryPressure(85)
+
+  if (isUnderPressure) {
+    // Reduce quality, unmount heavy components
+    return <LightweightDashboard />
+  }
+
+  return <FullDashboard />
+}
+```
+
+## LazySection props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `section` | `string` | -- | Section name for logging (required) |
+| `fallback?` | `ReactNode` | pulse skeleton | Shown while queued |
+| `priority?` | `number` | `0` | Lower = mounts first |
+| `unmountDistance?` | `number` | `1500` | Pixels past viewport to unmount |
+| `disabled?` | `boolean` | `false` | Bypass lazy loading |

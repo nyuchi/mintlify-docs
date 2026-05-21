@@ -1,0 +1,81 @@
+---
+title: "Charts"
+description: "Chart components in the Mukoko design system, built on Recharts with the Five African Minerals color palette."
+---
+
+The Nyuchi Design Portal provides chart components built on **Recharts**, wrapped in a `ChartContainer` that automatically applies the Five African Minerals color palette. Charts adapt between light and dark themes using the `--chart-*` tokens.
+
+## Installation
+
+```bash
+npx shadcn@latest add https://design.nyuchi.com/api/v1/ui/chart
+```
+
+This installs the `ChartContainer`, `ChartTooltip`, `ChartTooltipContent`, `ChartLegend`, and `ChartLegendContent` components.
+
+## Chart colors
+
+Charts use five theme-adaptive color tokens:
+
+| Token | Light | Dark | Mineral |
+|---|---|---|---|
+| `--chart-1` | `#4B0082` | `#B388FF` | Tanzanite |
+| `--chart-2` | `#0047AB` | `#00B0FF` | Cobalt |
+| `--chart-3` | `#004D40` | `#64FFDA` | Malachite |
+| `--chart-4` | `#5D4037` | `#FFD740` | Gold |
+| `--chart-5` | `#8B4513` | `#D4A574` | Terracotta |
+
+Use these tokens sequentially for chart data series to maintain color consistency across all Mukoko apps.
+
+## Chart types
+
+<CardGroup cols={3}>
+  <Card title="Area Chart" icon="area-chart" href="/design-system/charts/area">
+    Filled area charts for time series and trends.
+  </Card>
+  <Card title="Bar Chart" icon="bar-chart-3" href="/design-system/charts/bar">
+    Vertical and horizontal bar charts for comparisons.
+  </Card>
+  <Card title="Line Chart" icon="line-chart" href="/design-system/charts/line">
+    Line charts for continuous data.
+  </Card>
+  <Card title="Pie Chart" icon="pie-chart" href="/design-system/charts/pie">
+    Pie and donut charts for proportions.
+  </Card>
+  <Card title="Radar Chart" icon="radar" href="/design-system/charts/radar">
+    Radar charts for multivariate comparisons.
+  </Card>
+  <Card title="Radial Chart" icon="circle-dashed" href="/design-system/charts/radial">
+    Radial bar charts for progress and gauges.
+  </Card>
+  <Card title="Tooltip" icon="message-square" href="/design-system/charts/tooltip">
+    Customising chart tooltips and legends.
+  </Card>
+</CardGroup>
+
+## Basic usage
+
+All charts follow the same pattern: wrap a Recharts chart in `ChartContainer` with a config object:
+
+```tsx
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { AreaChart, Area, XAxis, YAxis } from "recharts"
+
+const chartConfig = {
+  visitors: { label: "Visitors", color: "var(--chart-1)" },
+}
+
+<ChartContainer config={chartConfig} className="h-[300px]">
+  <AreaChart data={data}>
+    <XAxis dataKey="month" />
+    <YAxis />
+    <Area dataKey="visitors" fill="var(--chart-1)" stroke="var(--chart-1)" />
+    <ChartTooltip content={<ChartTooltipContent />} />
+  </AreaChart>
+</ChartContainer>
+```
+
+The `ChartContainer` provides:
+- Responsive sizing
+- Theme-aware colors via CSS custom properties
+- Accessible labeling

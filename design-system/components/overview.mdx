@@ -1,0 +1,35 @@
+---
+title: "Components"
+description: "Browse all 177+ production-ready UI components. Each component has a live preview, source code, and API tester."
+---
+
+Browse the full component library. Each component has a live preview, full source code, and an API tester to fetch it programmatically.
+
+## Install any component
+
+```bash
+npx shadcn@latest add https://design.nyuchi.com/api/v1/ui/<component-name>
+```
+
+## Browse the registry
+
+The full component library — with live previews, source code, and an API
+tester for each component — is available on the design portal at
+[design.nyuchi.com/components](https://design.nyuchi.com/components).
+
+You can also list every component programmatically:
+
+```bash
+# Registry index (all components, metadata only)
+curl https://design.nyuchi.com/api/v1/ui
+
+# A single component, with inline source code
+curl https://design.nyuchi.com/api/v1/ui/button
+```
+
+<Note>
+  The interactive component gallery is a live React surface on the design
+  portal and does not port to this documentation site. Use the API endpoints
+  above, or the [registry guide](/architecture/registry), to explore and
+  install components.
+</Note>

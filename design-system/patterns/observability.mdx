@@ -1,0 +1,139 @@
+---
+title: "Observability"
+description: "Structured logging, performance measurement, and error tracking with the [mukoko] prefix for grep-ability."
+---
+
+Structured logging, performance measurement, and error tracking. Every log line uses the `[mukoko]` prefix for grep-ability across all services.
+
+## Install from registry
+
+```bash
+npx shadcn@latest add https://design.nyuchi.com/api/v1/ui/observability
+```
+
+## API reference
+
+### `log`
+
+Structured logger with four levels: debug, info, warn, error. All output is prefixed with `[mukoko]` and optionally scoped to a module.
+
+```ts title="lib/observability.ts"
+
+// Basic logging
+log.info("Server started")
+// → [mukoko] INFO Server started
+
+// With module scope
+log.info("Component served", {
+  module: "registry",
+  data: { name: "button", fileCount: 1 },
+})
+// → [mukoko:registry] INFO Component served { name: "button", fileCount: 1 }
+
+// Error logging
+log.error("Failed to fetch weather", {
+  module: "weather",
+  error: new Error("timeout"),
+  traceId: "req-abc123",
+})
+// → [mukoko:weather] ERROR Failed to fetch weather [trace:req-abc123] Error: timeout
+```
+
+### `createLogger`
+
+Creates a scoped logger bound to a module name. Recommended for files that log frequently — avoids repeating the module name.
+
+```ts title="app/api/v1/ui/route.ts"
+
+const logger = createLogger("registry")
+
+// All logs automatically scoped
+logger.info("Registry index served", {
+  data: { itemCount: 59 },
+})
+// → [mukoko:registry] INFO Registry index served { itemCount: 59 }
+
+logger.warn("File not found, skipping", {
+  data: { filePath: "components/ui/missing.tsx" },
+})
+// → [mukoko:registry] WARN File not found, skipping { filePath: ... }
+```
+
+### `measure`
+
+Measures execution time of sync or async functions. Logs duration on success and failure. Returns the function's result.
+
+```ts title="example usage"
+
+// Measure an async operation
+const data = await measure("fetch-weather", async () => {
+  const res = await fetch("https://api.mukoko.com/weather")
+  return res.json()
+})
+// → [mukoko:perf] INFO fetch-weather completed in 142ms { duration: 142, label: "fetch-weather" }
+
+// Measure with module scope
+const result = await measure("build-registry", () => {
+  return buildAllComponents()
+}, { module: "registry" })
+// → [mukoko:registry] INFO build-registry completed in 3204ms { duration: 3204, ... }
+
+// Failures are logged automatically
+await measure("risky-operation", async () => {
+  throw new Error("something broke")
+})
+// → [mukoko:perf] ERROR risky-operation failed after 2ms { duration: 2, ... } Error: something broke
+```
+
+### `trackError`
+
+Convenience function for tracking errors without throwing. Wraps non-Error values in an Error automatically.
+
+```ts title="example usage"
+
+try {
+  await riskyOperation()
+} catch (error) {
+  trackError(error, {
+    module: "checkout",
+    data: { userId: "user-123", action: "payment" },
+  })
+  // Show fallback UI instead of crashing
+  return <FallbackView />
+}
+```
+
+## Demonstration
+
+<Note>
+  The design portal hosts a live demonstration where you can trigger log calls
+  and watch the structured output in the browser console in real time. That
+  interactive React demo does not port to this documentation site — the code
+  examples below show the same log shapes.
+</Note>
+
+## Integration with error boundaries
+
+The SectionErrorBoundary automatically logs errors via the observability system. No manual integration needed — just wrap your sections.
+
+```ts title="automatic logging"
+// SectionErrorBoundary logs automatically:
+// [mukoko:error-boundary] ERROR Section "Weather Overview" crashed
+//   { section: "Weather Overview", componentStack: [...] }
+//   Error: Cannot read properties of undefined
+
+// The ErrorBoundary component also logs:
+// [mukoko:error-boundary] ERROR Component error caught by boundary
+//   Error: Failed to render chart
+```
+
+## Grep patterns
+
+| Pattern | Description |
+|---|---|
+| `grep "[mukoko]" logs` | All Mukoko logs |
+| `grep "[mukoko:registry]" logs` | Registry module only |
+| `grep "[mukoko].*ERROR" logs` | All errors |
+| `grep "[mukoko:error-boundary]" logs` | Error boundary events |
+| `grep "[mukoko:perf]" logs` | Performance measurements |
+| `grep "[trace:req-" logs` | Request traces |

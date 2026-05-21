@@ -1,0 +1,35 @@
+---
+title: "Blocks"
+description: "Pre-built, composable UI blocks for common page patterns in the Mukoko ecosystem."
+---
+
+Blocks are pre-built compositions of Mukoko components that form common page sections. Unlike individual components (a Button, a Card), blocks are higher-level — a complete dashboard header, a login form, or a sidebar layout.
+
+## How blocks work
+
+Blocks are composed entirely from registry components. They follow the [layered architecture](/design-system/patterns/architecture) — Layer 2 (domain composites) built from Layer 1 (shared primitives).
+
+Install individual components, then compose them into blocks following these patterns.
+
+## Available blocks
+
+<CardGroup cols={3}>
+  <Card title="Dashboard" icon="layout-dashboard" href="/design-system/blocks/dashboard">
+    Stats, charts, sidebar layout, and data tables.
+  </Card>
+  <Card title="Authentication" icon="lock" href="/design-system/blocks/authentication">
+    Sign in, sign up, and password reset forms.
+  </Card>
+  <Card title="Sidebar" icon="panel-left" href="/design-system/blocks/sidebar">
+    Collapsible sidebar with navigation groups.
+  </Card>
+</CardGroup>
+
+## Building with blocks
+
+1. Install the required components from the registry
+2. Follow the block pattern to compose them
+3. Customize the content and data for your specific app
+4. The block inherits all design tokens from your `globals.css`
+
+Blocks are not installable as single units — they are documented patterns that show you how to compose registry components for common use cases.
