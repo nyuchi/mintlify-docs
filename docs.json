@@ -1,14 +1,17 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "almond",
-  "name": "Product Guide",
+  "theme": "aspen",
+  "name": "Nyuchi Docs",
   "description": "Step-by-step guides for every product—platform setup, analytics, and integrations in one place.",
   "colors": {
-    "primary": "#166E3F",
-    "light": "#26BD6C",
-    "dark": "#166E3F"
+    "primary": "#0047AB",
+    "light": "#00B0FF",
+    "dark": "#002966"
   },
-  "favicon": "/favicon.ico",
+  "favicon": {
+    "light": "/favicon.svg",
+    "dark": "/favicon-dark.svg"
+  },
   "icons": {
     "library": "lucide"
   },
@@ -161,8 +164,9 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/yourcompany",
-      "linkedin": "https://linkedin.com/company/yourcompany"
+      "x": "https://x.com/nyuchiafrica",
+      "linkedin": "https://linkedin.com/company/nyuchi",
+      "github": "https://github.com/nyuchi"
     }
   }
 }

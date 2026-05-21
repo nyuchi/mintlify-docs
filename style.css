@@ -1,5 +1,32 @@
+/* Nyuchi Docs — typography matched to the nyuchi.com marketing site
+   (Nyuchi Design System: Noto Sans / Noto Serif / JetBrains Mono). */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap');
+
 :root {
   --default-border-color: var(--gray-200);
+  --font-sans: 'Noto Sans', system-ui, sans-serif;
+  --font-serif: 'Noto Serif', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-mono);
 }
 
 .dark {
@@ -48,7 +75,7 @@
 }
 
 #sidebar .nav-anchor span {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: -0.02em;
