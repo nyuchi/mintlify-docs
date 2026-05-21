@@ -2,12 +2,21 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "aspen",
   "name": "Nyuchi Docs",
-  "description": "Step-by-step guides for every product—platform setup, analytics, and integrations in one place.",
+  "description": "Documentation for Nyuchi — the platform, products, and the Nyuchi Design System.",
   "colors": {
-    "primary": "#0047AB",
-    "light": "#00B0FF",
-    "dark": "#002966"
+    "primary": "#5D4037",
+    "light": "#FFD740",
+    "dark": "#3E2723"
   },
+  "fonts": {
+    "family": "Noto",
+    "weight": 500,
+    "format": "woff2",
+    "heading": { "family": "Noto Serif" },
+    "body": { "family": "Noto Sans" }
+  },
+  "background": { "decoration": "grid" },
+  "appearance": { "default": "system" },
   "favicon": {
     "light": "/favicon.svg",
     "dark": "/favicon-dark.svg"
@@ -151,8 +160,8 @@
     ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/images/nyuchi-docs.svg",
+    "dark": "/images/nyuchi-docs-dark.svg"
   },
   "navbar": {
     "links": [],
