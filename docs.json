@@ -143,6 +143,20 @@
               "integrations/webhooks/event-types",
               "integrations/webhooks/retry-policies"
             ]
+          },
+          {
+            "group": "Nyuchi API",
+            "icon": "globe",
+            "expanded": true,
+            "pages": [
+              "integrations/nyuchi-api/overview",
+              "integrations/nyuchi-api/commerce",
+              "integrations/nyuchi-api/pay",
+              "integrations/nyuchi-api/logistics",
+              "integrations/nyuchi-api/lingo",
+              "integrations/nyuchi-api/news",
+              "integrations/nyuchi-api/weather"
+            ]
           }
         ]
       }
