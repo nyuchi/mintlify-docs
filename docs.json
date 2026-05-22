@@ -74,6 +74,16 @@
               "platform/administration/roles-permissions",
               "platform/administration/audit-logs"
             ]
+          },
+          {
+            "group": "API",
+            "icon": "code",
+            "expanded": true,
+            "pages": [
+              "platform/api/overview",
+              "platform/api/authentication",
+              "platform/api/security"
+            ]
           }
         ]
       },
