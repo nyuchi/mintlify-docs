@@ -52,7 +52,8 @@
             "pages": [
               "platform/quickstart",
               "platform/key-concepts",
-              "platform/support-chat"
+              "platform/support-chat",
+              "platform/product-workspaces"
             ]
           },
           {
@@ -61,6 +62,7 @@
             "expanded": true,
             "pages": [
               "platform/configuration/settings",
+              "platform/configuration/sign-in",
               "platform/configuration/user-management"
             ]
           },
@@ -121,7 +123,8 @@
             "expanded": true,
             "pages": [
               "integrations/quickstart",
-              "integrations/authentication"
+              "integrations/authentication",
+              "integrations/api-gateway"
             ]
           },
           {
