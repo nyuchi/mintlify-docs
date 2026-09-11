@@ -21,21 +21,21 @@ The `v1` prefix is the API version. A new prefix (`v2`, `v3`) will be introduced
 
 ## Namespaces
 
-| Namespace | What it covers |
-|-----------|----------------|
-| `/v1/auth` | Sign-in, token exchange, refresh, sign-out. |
-| `/v1/identity` | People and profile records. |
-| `/v1/family`, `/v1/organization` | Household and organization graphs. |
-| `/v1/places`, `/v1/events`, `/v1/directory` | Places, events, and directory listings. |
-| `/v1/content`, `/v1/media`, `/v1/search` | Editorial content, media assets, and full-text search. |
-| `/v1/applications`, `/v1/dashboard`, `/v1/admin` | Application records and admin operations. |
-| `/v1/api-keys` | Personal and service API keys. |
-| `/v1/commerce` | Products, offers, businesses, inquiries, reviews. |
-| `/v1/pay/wallet`, `/v1/pay/tokens`, `/v1/pay/gateway` | Wallets, tokens, and payment gateway. |
-| `/v1/logistics` | Booking drafts and fulfillment. |
-| `/v1/lingo` | Translation jobs and glossaries. |
-| `/v1/news` | News articles and feeds. |
-| `/v1/weather` | Weather forecasts and sources. |
+| Namespace                                             | What it covers                                         |
+| ----------------------------------------------------- | ------------------------------------------------------ |
+| `/v1/auth`                                            | Sign-in, token exchange, refresh, sign-out.            |
+| `/v1/identity`                                        | People and profile records.                            |
+| `/v1/family`, `/v1/organization`                      | Household and organization graphs.                     |
+| `/v1/places`, `/v1/events`, `/v1/directory`           | Places, events, and directory listings.                |
+| `/v1/content`, `/v1/media`, `/v1/search`              | Editorial content, media assets, and full-text search. |
+| `/v1/applications`, `/v1/dashboard`, `/v1/admin`      | Application records and admin operations.              |
+| `/v1/api-keys`                                        | Personal and service API keys.                         |
+| `/v1/commerce`                                        | Products, offers, businesses, inquiries, reviews.      |
+| `/v1/pay/wallet`, `/v1/pay/tokens`, `/v1/pay/gateway` | Wallets, tokens, and payment gateway.                  |
+| `/v1/logistics`                                       | Booking drafts and fulfillment.                        |
+| `/v1/lingo`                                           | Translation jobs and glossaries.                       |
+| `/v1/news`                                            | News articles and feeds.                               |
+| `/v1/weather`                                         | Weather forecasts and sources.                         |
 
 ## Authentication
 
@@ -60,24 +60,24 @@ curl https://api.nyuchi.com/v1/admin/stats \
 
 ## Rate limits
 
-| Endpoint group | Limit |
-|----------------|-------|
-| Default (all `/v1/*` paths) | 60 requests per minute per IP |
-| `/v1/auth/email/send`, `/v1/auth/email/verify` | 10 requests per minute |
-| `/v1/auth/sms/send`, `/v1/auth/sms/verify` | 5 requests per minute |
-| `/v1/auth/exchange`, `/v1/auth/refresh` | 30 requests per minute |
+| Endpoint group                                 | Limit                         |
+| ---------------------------------------------- | ----------------------------- |
+| Default (all `/v1/*` paths)                    | 60 requests per minute per IP |
+| `/v1/auth/email/send`, `/v1/auth/email/verify` | 10 requests per minute        |
+| `/v1/auth/sms/send`, `/v1/auth/sms/verify`     | 5 requests per minute         |
+| `/v1/auth/exchange`, `/v1/auth/refresh`        | 30 requests per minute        |
 
 Requests over the limit receive HTTP `429 Too Many Requests` with a `Retry-After` header.
 
 ## Status codes
 
-| Code | Meaning |
-|------|---------|
-| `200`, `201` | Success. |
-| `401` | Missing or invalid `Authorization` header. For `/v1/admin/*` and `/v1/pay/*`, also returned when `X-Internal-Key` is missing or wrong. |
-| `403` | Authenticated but not authorized for the resource. |
-| `429` | Rate limit exceeded. |
-| `503` | The target product database isn't configured in this environment. Set the corresponding credentials and retry. |
+| Code         | Meaning                                                                                                                                |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `200`, `201` | Success.                                                                                                                               |
+| `401`        | Missing or invalid `Authorization` header. For `/v1/admin/*` and `/v1/pay/*`, also returned when `X-Internal-Key` is missing or wrong. |
+| `403`        | Authenticated but not authorized for the resource.                                                                                     |
+| `429`        | Rate limit exceeded.                                                                                                                   |
+| `503`        | The target product database isn't configured in this environment. Set the corresponding credentials and retry.                         |
 
 <Info>
   A `503` from a product namespace (for example `/v1/lingo`) means the gateway is healthy but that product's database hasn't been provisioned. Other namespaces continue to work normally.
