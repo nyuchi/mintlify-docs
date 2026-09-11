@@ -11,14 +11,14 @@ Use these endpoints to power booking flows in consumer apps and partner integrat
 
 ## Endpoints
 
-| Method | Path | Auth | Purpose |
-|--------|------|------|---------|
-| `GET` | `/v1/logistics/vehicles` | Optional | List vehicles. Supports `available`, `limit`, `offset`. |
-| `GET` | `/v1/logistics/vehicles/{vehicle_id}` | Optional | Fetch a single vehicle. |
-| `POST` | `/v1/logistics/bookings` | Required | Create a booking for the calling customer. |
-| `GET` | `/v1/logistics/bookings` | Required | List bookings owned by the caller. |
-| `GET` | `/v1/logistics/bookings/{booking_id}` | Required | Fetch a booking owned by the caller. |
-| `GET` | `/v1/logistics/locations` | Optional | List pickup and drop-off locations. |
+| Method | Path                                  | Auth     | Purpose                                                 |
+| ------ | ------------------------------------- | -------- | ------------------------------------------------------- |
+| `GET`  | `/v1/logistics/vehicles`              | Optional | List vehicles. Supports `available`, `limit`, `offset`. |
+| `GET`  | `/v1/logistics/vehicles/{vehicle_id}` | Optional | Fetch a single vehicle.                                 |
+| `POST` | `/v1/logistics/bookings`              | Required | Create a booking for the calling customer.              |
+| `GET`  | `/v1/logistics/bookings`              | Required | List bookings owned by the caller.                      |
+| `GET`  | `/v1/logistics/bookings/{booking_id}` | Required | Fetch a booking owned by the caller.                    |
+| `GET`  | `/v1/logistics/locations`             | Optional | List pickup and drop-off locations.                     |
 
 ## Find an available vehicle
 

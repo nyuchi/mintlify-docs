@@ -96,10 +96,7 @@
             "group": "Getting started",
             "icon": "rocket",
             "expanded": true,
-            "pages": [
-              "analytics/quickstart",
-              "analytics/connect-data"
-            ]
+            "pages": ["analytics/quickstart", "analytics/connect-data"]
           },
           {
             "group": "Dashboards",
