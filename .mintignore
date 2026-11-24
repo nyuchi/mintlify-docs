@@ -5,3 +5,8 @@
 # Draft content
 drafts/
 *.draft.mdx
+
+# Org-standard community files: plain Markdown, not Mintlify content.
+AGENTS.md
+CODE_OF_CONDUCT.md
+SECURITY.md
